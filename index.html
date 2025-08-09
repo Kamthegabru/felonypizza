@@ -129,7 +129,7 @@
             padding: 4em 2em;
             transition: background 0.5s ease-in-out;
         }
-        .bg-bars {
+        .bg-bricks {
             background-image: linear-gradient(rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.85)), url('img/bars.png');
         }
         .bg-steel {
@@ -398,6 +398,13 @@
             background-color: #d1642a;
             transform: scale(1.02);
         }
+
+        .location-card a.button.disabled {
+            background-color: #555;
+            color: #999;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
         
         /* --- Footer --- */
         footer {
@@ -520,7 +527,61 @@
             font-size: 1.2em;
         }
 
+        .location-choice.disabled {
+            background-color: #222;
+            color: #666;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* --- GloriaFood Button Style Override --- */
+        .glf-button {
+            /* This resets the default styles from the ordering script */
+            background-image: none !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+            border: none !important;
+            min-width: 0 !important; /* Fix for size issue */
+        }
+
+        .location-card .glf-button {
+            /* This applies your custom .button styles */
+            display: block !important;
+            margin-top: auto !important;
+            padding: 0.8em 1.5em !important;
+            background-color: var(--primary-color) !important;
+            color: var(--text-color-light) !important;
+            text-decoration: none !important;
+            border-radius: 5px !important;
+            font-weight: bold !important;
+            text-align: center !important;
+            transition: background-color 0.3s ease, transform 0.3s ease !important;
+            font-family: 'Oswald', sans-serif !important;
+            text-transform: uppercase !important;
+            line-height: normal !important; /* Reset line-height */
+            font-size: 1em !important; /* Reset font-size if needed */
+        }
         
+        .location-card .glf-button:hover {
+            background-color: #d1642a !important;
+            transform: scale(1.02) !important;
+        }
+
+        .modal-content .glf-button {
+            /* This applies your custom .location-choice styles */
+            background-color: var(--dark-bg) !important;
+            color: var(--text-color-light) !important;
+            border: 1px solid #333 !important;
+            font-family: 'Roboto', sans-serif !important;
+            text-transform: none !important;
+        }
+
+        .modal-content .glf-button:hover {
+            background-color: var(--primary-color) !important;
+            color: #000 !important;
+        }
+        
+
         /* --- Mobile Fluidity / Responsive Styles --- */
         @media (max-width: 991px) {
             .stylish-container {
@@ -628,7 +689,7 @@
                     <p>Hand-tossed, locally-sourced, and criminally good. This isn't just pizza, it's a statement. Watch our story and see why every slice gets a life sentence of flavor.</p>
                     <div class="background-selector">
                         <h4>Choose Your Scene:</h4>
-                        <button class="bg-btn" data-bg="bg-bars">bars</button>
+                        <button class="bg-btn" data-bg="bg-bricks">Bricks</button>
                         <button class="bg-btn" data-bg="bg-steel">Steel</button>
                         <button class="bg-btn" data-bg="bg-spotlight">Spotlight</button>
                     </div>
@@ -651,6 +712,7 @@
                 <button class="tab-button" onclick="openMenu(event, 'Gresham')">Gresham Menu</button>
             </div>
 
+            <!-- Vancouver Menu Content -->
             <div id="Vancouver" class="menu-content active">
                 <p class="menu-intro">We source ingredients locally when available.</p>
                 <p class="menu-legend">v: vegetarian, v+: vegan, gf: gluten free</p>
@@ -698,6 +760,7 @@
                         <div class="menu-item"><div class="menu-item-header"><div class="menu-item-name">Dippin Dots Ice Cream</div><div class="menu-item-price">$5</div></div></div>
                     </div>
                 </div>
+                <!-- Commissary Section Moved Here -->
                 <div class="menu-category">
                     <h3>The Commissary</h3>
                     <p class="menu-item-description">$1 charge for any additional sauces not already included.</p>
@@ -755,6 +818,7 @@
                 </div>
             </div>
 
+            <!-- Gresham Menu Content -->
             <div id="Gresham" class="menu-content">
                  <div class="menu-grid">
                     <div class="menu-category">
@@ -852,7 +916,7 @@
                         <li><span class="day">Friday - Sunday</span> <span class="time">11:00am – 9:00pm</span></li>
                         <li><span class="day">Monday & Tuesday</span> <span class="time">CLOSED</span></li>
                     </ul>
-                    <a href="#" class="button">Order From Vancouver</a>
+                    <a href="#" class="button glf-button" data-glf-cuid="59d5472b-a61b-4209-8130-7eb790a153c6" data-glf-ruid="5ff59eba-00a9-4199-a22a-96868a8b0fa1">See MENU & Order</a>
                 </div>
                 <div class="location-card">
                     <h3>Gresham, OR</h3>
@@ -867,7 +931,7 @@
                         <li><span class="day">Monday & Tuesday</span> <span class="time">CLOSED</span></li>
                         <li><span class="day"></span> <span class="time"><em>(To Go Only)</em></span></li>
                     </ul>
-                    <a href="#" class="button">Order From Gresham</a>
+                    <a href="#" class="button disabled">Coming Soon</a>
                 </div>
             </div>
         </div>
@@ -884,7 +948,7 @@
                 <a href="#about">About</a>
                 <a href="#menu">Menu</a>
                 <a href="#locations">Locations</a>
-                <a href="#">Order Online</a>
+                <a href="#" id="footerOrderBtn">Order Online</a>
             </div>
             <div class="footer-col">
                 <h4>Contact Us</h4>
@@ -903,18 +967,19 @@
         </div>
     </footer>
 
+    <!-- Pop-up Modal HTML -->
     <div id="locationModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <h3>Choose Your Location</h3>
             <p>Select a location to start your order.</p>
-            <a href="#" class="location-choice">
+            <a href="#" class="location-choice glf-button" data-glf-cuid="59d5472b-a61b-4209-8130-7eb790a153c6" data-glf-ruid="5ff59eba-00a9-4199-a22a-96868a8b0fa1">
                 <strong>Vancouver</strong>
                 (360) 718-7724
             </a>
-            <a href="#" class="location-choice">
+            <a href="#" class="location-choice disabled">
                 <strong>Gresham</strong>
-                (971) 804-5765
+                (Coming Soon)
             </a>
         </div>
     </div>
@@ -932,17 +997,25 @@
                 tabButtons[i].className = tabButtons[i].className.replace(" active", "");
             }
             document.getElementById(menuName).style.display = "block";
-            evt.currentTarget.className += " active";
+            if(evt) {
+                evt.currentTarget.className += " active";
+            }
         }
         
         // --- Modal Pop-up Functionality ---
         var modal = document.getElementById("locationModal");
-        var btn = document.getElementById("orderBtn");
+        var orderNavBtn = document.getElementById("orderBtn");
+        var orderFooterBtn = document.getElementById("footerOrderBtn");
         var span = document.getElementsByClassName("close-button")[0];
-        btn.onclick = function(e) {
+        
+        function openModal(e) {
             e.preventDefault();
             modal.style.display = "flex";
         }
+
+        orderNavBtn.onclick = openModal;
+        orderFooterBtn.onclick = openModal;
+
         span.onclick = function() {
             modal.style.display = "none";
         }
@@ -955,28 +1028,22 @@
         // --- Background Selector ---
         const bgSection = document.getElementById('stylish-about-section');
         const bgButtons = document.querySelectorAll('.bg-btn');
-        const bgClasses = ['bg-bars', 'bg-steel', 'bg-spotlight'];
+        const bgClasses = ['bg-bricks', 'bg-steel', 'bg-spotlight'];
 
-        // Function to set the background
         function setBackground(bgClass) {
-            // Remove any existing background classes
             bgClasses.forEach(c => bgSection.classList.remove(c));
             bgButtons.forEach(b => b.classList.remove('active'));
             
-            // Add the new class
             bgSection.classList.add(bgClass);
             
-            // Set active button state
             const activeButton = document.querySelector(`.bg-btn[data-bg="${bgClass}"]`);
             if(activeButton) {
                 activeButton.classList.add('active');
             }
             
-            // Save choice to localStorage
             localStorage.setItem('felonyPizzaBackground', bgClass);
         }
 
-        // Add click event listeners to buttons
         bgButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const bgClass = button.getAttribute('data-bg');
@@ -987,18 +1054,20 @@
         // --- On Page Load ---
         document.addEventListener('DOMContentLoaded', (event) => {
             // Set default active menu tab
-            document.querySelector('.tab-button').click();
+            const firstTab = document.querySelector('.tab-button');
+            if(firstTab) {
+                openMenu({currentTarget: firstTab}, 'Vancouver');
+            }
 
             // Check for saved background preference
             const savedBg = localStorage.getItem('felonyPizzaBackground');
             if (savedBg && bgClasses.includes(savedBg)) {
                 setBackground(savedBg);
             } else {
-                // Set a default background if none is saved
-                setBackground('bg-bars');
+                setBackground('bg-bricks');
             }
         });
     </script>
+    <script src="https://www.fbgcdn.com/embedder/js/ewm2.js" defer async ></script>
 </body>
 </html>
-```

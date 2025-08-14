@@ -59,7 +59,7 @@
 
         /* --- Header & Navigation --- */
         header {
-            background-image: linear-gradient(rgba(155, 148, 148, 0.7), rgba(0, 0, 0, 0.7));
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/bg.png');
             background-size: cover;
             background-position: center;
             text-align: center;
@@ -769,6 +769,8 @@
             border: 1px solid #333 !important;
             font-family: 'Roboto', sans-serif !important;
             text-transform: none !important;
+            width: 100%; /* Ensures it's a full-width rectangle */
+            box-sizing: border-box; /* Includes padding and border in the element's total width and height */
         }
 
         .modal-content .glf-button:hover {
@@ -996,7 +998,6 @@
                             <div class="slide"><img src="img/pizza1.png" alt="Delicious Pizza"></div>
                             <div class="slide"><img src="img/pizza2.png" alt="Fresh Ingredients"></div>
                             <div class="slide"><img src="img/pizza3.png" alt="Criminally Good Pizza"></div>
-                            <div class="slide"><img src="img/pizza4.png" alt="The Genovese Pizza"></div>
                         </div>
                         <button class="slider-nav prev">&lt;</button>
                         <button class="slider-nav next">&gt;</button>
@@ -1234,7 +1235,7 @@
                         <li><span class="day">Monday & Tuesday</span> <span class="time">CLOSED</span></li>
                         <li><span class="day"></span> <span class="time"><em>(To Go Only)</em></span></li>
                     </ul>
-                    <a href="#" class="button disabled">Not Available</a>
+                    <a href="#" class="button disabled">Coming Soon</a>
                 </div>
             </div>
         </div>
@@ -1254,7 +1255,7 @@
             <h2>Testimonials</h2>
             <div class="reviews-grid">
                 <div class="review-card">
-                    <img src="img/review1.png" alt="Reviewer's pizza photo">
+                    <img src="img/pizza1.png" alt="Reviewer's pizza photo">
                     <div class="review-content">
                         <div class="stars">★★★★★</div>
                         <p class="review-text">"The atmosphere is awesome, the pizza is even better. The 'Enforcer' is my go-to, loaded with toppings and cooked perfectly."</p>
@@ -1262,7 +1263,7 @@
                     </div>
                 </div>
                  <div class="review-card">
-                    <img src="img/review2.png" alt="Reviewer's pizza photo">
+                    <img src="img/pizza2.png" alt="Reviewer's pizza photo">
                     <div class="review-content">
                         <div class="stars">★★★★★</div>
                         <p class="review-text">"A must-try spot in Vancouver! Creative names and seriously delicious pizza. We loved the friendly staff and the unique vibe."</p>
@@ -1270,7 +1271,7 @@
                     </div>
                 </div>
                  <div class="review-card">
-                    <img src="img/review3.png" alt="Reviewer's pizza photo">
+                    <img src="img/pizza3.png" alt="Reviewer's pizza photo">
                     <div class="review-content">
                         <div class="stars">★★★★★</div>
                         <p class="review-text">"Finally tried this place and it lives up to the hype. The crust was amazing and the ingredients were super fresh. Will be back!"</p>
@@ -1370,10 +1371,19 @@
             <span class="close-button">&times;</span>
             <h3>Choose Your Location</h3>
             <p>Select a location to start your order.</p>
-            <a href="#" class="location-choice glf-button" data-glf-cuid="59d5472b-a61b-4209-8130-7eb790a153c6" data-glf-ruid="5ff59eba-00a9-4199-a22a-96868a8b0fa1">
+            
+            <!-- This is the commented-out button for when you go live -->
+            <!-- <a href="#" class="location-choice glf-button" data-glf-cuid="59d5472b-a61b-4209-8130-7eb790a153c6" data-glf-ruid="5ff59eba-00a9-4199-a22a-96868a8b0fa1">
                 <strong>Vancouver</strong>
                 (360) 718-7724
+            </a> -->
+
+            <!-- This is the temporary "Coming Soon" button for Vancouver -->
+            <a href="#" class="location-choice disabled">
+                <strong>Vancouver</strong>
+                (Coming Soon)
             </a>
+
             <a href="#" class="location-choice disabled">
                 <strong>Gresham</strong>
                 (Not Available)
@@ -1553,5 +1563,3 @@
     <script src="https://www.fbgcdn.com/embedder/js/ewm2.js" defer async ></script>
 </body>
 </html>
-
-
